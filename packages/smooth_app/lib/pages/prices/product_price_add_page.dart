@@ -29,15 +29,18 @@ import 'package:smooth_app/widgets/will_pop_scope.dart';
 /// Single page that displays all the elements of price adding.
 class ProductPriceAddPage extends StatefulWidget {
   const ProductPriceAddPage(
-    this.model,
-  );
+      this.model, {
+        this.showAddProductCard = true,
+      });
 
   final PriceModel model;
+  final bool showAddProductCard;  // New parameter to control visibility
 
   static Future<void> showProductPage({
     required final BuildContext context,
     final PriceMetaProduct? product,
     required final ProofType proofType,
+    final bool showAddProductCard = true,  // Default value is true
   }) async {
     if (!await ProductRefresher().checkIfLoggedIn(
       context,
@@ -66,6 +69,7 @@ class ProductPriceAddPage extends StatefulWidget {
             initialProduct: product,
             currency: currency,
           ),
+          showAddProductCard: showAddProductCard,  // Pass the parameter
         ),
       ),
     );
@@ -152,7 +156,8 @@ class _ProductPriceAddPageState extends State<ProductPriceAddPage>
                         index: i,
                       ),
                     const SizedBox(height: LARGE_SPACE),
-                    const PriceAddProductCard(),
+                    if (widget.showAddProductCard)
+                      const PriceAddProductCard(),
                     // so that the last items don't get hidden by the FAB
                     const SizedBox(height: MINIMUM_TOUCH_SIZE * 2),
                   ],
