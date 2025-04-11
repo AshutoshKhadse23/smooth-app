@@ -59,12 +59,12 @@ class LanguagesSelector extends StatelessWidget {
       language = LanguageHelper.fromJson(currentLanguageCode);
     }
     final DaoStringList daoStringList =
-        DaoStringList(context.read<LocalDatabase>());
+    DaoStringList(context.read<LocalDatabase>());
 
     final TextStyle textStyle = Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: foregroundColor) ??
+        .textTheme
+        .bodyMedium
+        ?.copyWith(color: foregroundColor) ??
         TextStyle(color: foregroundColor);
 
     return Material(
@@ -128,32 +128,32 @@ class LanguagesSelector extends StatelessWidget {
   /// [selectedLanguages] will be displayed first if [showSelectedLanguages] is [true].
   /// Otherwise, they will be filtered
   static Future<OpenFoodFactsLanguage?> openLanguageSelector(
-    final BuildContext context, {
-    required final Iterable<OpenFoodFactsLanguage>? selectedLanguages,
-    final bool showSelectedLanguages = false,
-    final Widget? checkedIcon,
-    final String? title,
-  }) async {
+      final BuildContext context, {
+        required final Iterable<OpenFoodFactsLanguage>? selectedLanguages,
+        final bool showSelectedLanguages = false,
+        final Widget? checkedIcon,
+        final String? title,
+      }) async {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
     final UserPreferences userPreferences = context.read<UserPreferences>();
 
     final List<OpenFoodFactsLanguage> allLanguages =
-        _languages.getSupportedLanguagesNameInEnglish();
+    _languages.getSupportedLanguagesNameInEnglish();
 
     /// Take the 3 most popular languages
     final Iterable<MapEntry<String, int>> popularList = userPreferences
         .languagesUsage.entries
         .sorted((final MapEntry<String, int> entry1,
-            final MapEntry<String, int> entry2) {
+        final MapEntry<String, int> entry2) {
       return entry1.value.compareTo(entry2.value);
     }).take(3);
 
     final List<OpenFoodFactsLanguage> selectedLanguagesList =
-        <OpenFoodFactsLanguage>[];
+    <OpenFoodFactsLanguage>[];
     final List<OpenFoodFactsLanguage> popularLanguagesList =
-        <OpenFoodFactsLanguage>[];
+    <OpenFoodFactsLanguage>[];
     final List<OpenFoodFactsLanguage> otherLanguagesList =
-        <OpenFoodFactsLanguage>[];
+    <OpenFoodFactsLanguage>[];
 
     for (final OpenFoodFactsLanguage language in allLanguages) {
       if (selectedLanguages?.contains(language) == true) {
@@ -163,7 +163,7 @@ class LanguagesSelector extends StatelessWidget {
           selectedLanguagesList.add(language);
         }
       } else if (popularList.any(
-          (final MapEntry<String, int> entry) => entry.key == language.code)) {
+              (final MapEntry<String, int> entry) => entry.key == language.code)) {
         popularLanguagesList.add(language);
       } else {
         otherLanguagesList.add(language);
@@ -176,7 +176,7 @@ class LanguagesSelector extends StatelessWidget {
     _sortLanguages(otherLanguagesList, languagesHelper);
 
     final OpenFoodFactsLanguage? language =
-        await showSmoothModalSheetForTextField<OpenFoodFactsLanguage>(
+    await showSmoothModalSheetForTextField<OpenFoodFactsLanguage>(
       context: context,
       header: SmoothModalSheetHeader(
         title: title ?? appLocalizations.language_selector_title,
@@ -201,17 +201,17 @@ class LanguagesSelector extends StatelessWidget {
   }
 
   static String _getCompleteName(
-    final OpenFoodFactsLanguage language,
-  ) {
+      final OpenFoodFactsLanguage language,
+      ) {
     final String nameInLanguage = _languages.getNameInLanguage(language);
     final String nameInEnglish = _languages.getNameInEnglish(language);
     return '$nameInLanguage ($nameInEnglish)';
   }
 
   static void _sortLanguages(
-    List<OpenFoodFactsLanguage> languages,
-    Languages languagesHelper,
-  ) {
+      List<OpenFoodFactsLanguage> languages,
+      Languages languagesHelper,
+      ) {
     return languages
         .sort((final OpenFoodFactsLanguage a, final OpenFoodFactsLanguage b) {
       return languagesHelper
@@ -251,51 +251,20 @@ class _LanguagesListState extends State<_LanguagesList> {
     _otherLanguages = List<OpenFoodFactsLanguage>.of(widget.otherLanguages);
     _popularLanguages = List<OpenFoodFactsLanguage>.of(widget.popularLanguages);
     _selectedLanguages =
-        List<OpenFoodFactsLanguage>.of(widget.selectedLanguages);
+    List<OpenFoodFactsLanguage>.of(widget.selectedLanguages);
   }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
     final SmoothColorsThemeExtension extension =
-        context.extension<SmoothColorsThemeExtension>();
+    context.extension<SmoothColorsThemeExtension>();
 
     final double keyboardHeight = MediaQuery.viewInsetsOf(context).bottom;
 
     return Column(
       children: <Widget>[
-        SizedBox(
-          width: double.infinity,
-          height: MediaQuery.sizeOf(context).height *
-              (widget.selectedLanguages.isNotEmpty ? 0.4 : 0.3),
-          child: Theme(
-            data: Theme.of(context).copyWith(
-              dividerTheme: DividerThemeData(
-                color: context.lightTheme() ? null : extension.greyDark,
-              ),
-            ),
-            child: Scrollbar(
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                itemBuilder: (BuildContext context, int index) {
-                  final (OpenFoodFactsLanguage? language, _LanguageType type) =
-                      _findItem(index);
-
-                  if (type == _LanguageType.selectedTitle ||
-                      type == _LanguageType.popularTitle) {
-                    return _buildSection(extension, type, appLocalizations);
-                  }
-
-                  return _buildLanguageTile(language, type);
-                },
-                itemCount: _countItems(),
-                shrinkWrap: true,
-                separatorBuilder: (_, __) => const Divider(height: 1.0),
-                reverse: true,
-              ),
-            ),
-          ),
-        ),
+        // Search field now appears at the top
         Padding(
           padding: const EdgeInsetsDirectional.symmetric(
             horizontal: MEDIUM_SPACE,
@@ -316,7 +285,38 @@ class _LanguagesListState extends State<_LanguagesList> {
             },
           ),
         ),
+        SizedBox(
+          width: double.infinity,
+          height: MediaQuery.sizeOf(context).height *
+              (widget.selectedLanguages.isNotEmpty ? 0.4 : 0.3),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              dividerTheme: DividerThemeData(
+                color: context.lightTheme() ? null : extension.greyDark,
+              ),
+            ),
+            child: Scrollbar(
+              child: ListView.separated(
+                padding: EdgeInsets.zero,
+                itemBuilder: (BuildContext context, int index) {
+                  final (OpenFoodFactsLanguage? language, _LanguageType type) =
+                  _findItem(index);
 
+                  if (type == _LanguageType.selectedTitle ||
+                      type == _LanguageType.popularTitle) {
+                    return _buildSection(extension, type, appLocalizations);
+                  }
+
+                  return _buildLanguageTile(language, type);
+                },
+                itemCount: _countItems(),
+                shrinkWrap: true,
+                separatorBuilder: (_, __) => const Divider(height: 1.0),
+                // Remove reverse: true to show languages in normal order
+              ),
+            ),
+          ),
+        ),
         /// Keyboard height or status bar height
         SizedBox(
           height: keyboardHeight > 0.0
@@ -327,11 +327,11 @@ class _LanguagesListState extends State<_LanguagesList> {
     );
   }
 
-  Container _buildSection(
-    SmoothColorsThemeExtension extension,
-    _LanguageType type,
-    AppLocalizations appLocalizations,
-  ) {
+  Widget _buildSection(
+      SmoothColorsThemeExtension extension,
+      _LanguageType type,
+      AppLocalizations appLocalizations,
+      ) {
     return Container(
       color: context.lightTheme()
           ? extension.primaryMedium
@@ -345,16 +345,16 @@ class _LanguagesListState extends State<_LanguagesList> {
             ? appLocalizations.language_selector_section_selected
             : appLocalizations.language_selector_section_frequently_used,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 
   ListTile _buildLanguageTile(
-    OpenFoodFactsLanguage? language,
-    _LanguageType type,
-  ) {
+      OpenFoodFactsLanguage? language,
+      _LanguageType type,
+      ) {
     return ListTile(
       contentPadding: const EdgeInsetsDirectional.symmetric(
         horizontal: VERY_LARGE_SPACE,
@@ -366,7 +366,7 @@ class _LanguagesListState extends State<_LanguagesList> {
       ),
       trailing: switch (type) {
         _LanguageType.selected =>
-          widget.checkedIcon ?? const Icon(Icons.check_rounded),
+        widget.checkedIcon ?? const Icon(Icons.check_rounded),
         _LanguageType.popular => const Icon(Icons.stars_rounded),
         _ => null,
       },
@@ -374,35 +374,38 @@ class _LanguagesListState extends State<_LanguagesList> {
     );
   }
 
+  // Modified to handle the non-reversed list order
   (OpenFoodFactsLanguage?, _LanguageType) _findItem(int index) {
-    final int selectedLength = _selectedLanguages.length;
-    int diff = 0;
-    if (selectedLength > 0) {
-      if (index == selectedLength) {
+    int currentIndex = 0;
+
+    // First show selected languages section
+    if (_selectedLanguages.isNotEmpty) {
+      if (index == currentIndex) {
         return (null, _LanguageType.selectedTitle);
-      } else if (index < selectedLength) {
-        return (_selectedLanguages[index], _LanguageType.selected);
       }
-      diff++;
+      currentIndex++;
+
+      if (index < currentIndex + _selectedLanguages.length) {
+        return (_selectedLanguages[index - currentIndex], _LanguageType.selected);
+      }
+      currentIndex += _selectedLanguages.length;
     }
 
-    final int popularLength = _popularLanguages.length;
-    if (popularLength > 0) {
-      if (index < selectedLength + popularLength + diff) {
-        return (
-          _popularLanguages[index - selectedLength - diff],
-          _LanguageType.popular
-        );
-      } else if (index == selectedLength + popularLength + diff) {
+    // Then show popular languages section
+    if (_popularLanguages.isNotEmpty) {
+      if (index == currentIndex) {
         return (null, _LanguageType.popularTitle);
       }
-      diff++;
+      currentIndex++;
+
+      if (index < currentIndex + _popularLanguages.length) {
+        return (_popularLanguages[index - currentIndex], _LanguageType.popular);
+      }
+      currentIndex += _popularLanguages.length;
     }
 
-    return (
-      _otherLanguages[index - selectedLength - popularLength - diff],
-      _LanguageType.other
-    );
+    // Finally show other languages
+    return (_otherLanguages[index - currentIndex], _LanguageType.other);
   }
 
   dynamic _countItems() {
@@ -428,15 +431,15 @@ class _LanguagesListState extends State<_LanguagesList> {
       List<OpenFoodFactsLanguage> list, String query) {
     return list
         .where((OpenFoodFactsLanguage item) =>
-            Languages()
-                .getNameInEnglish(item)
-                .getComparisonSafeString()
-                .contains(query.toLowerCase()) ||
-            Languages()
-                .getNameInLanguage(item)
-                .getComparisonSafeString()
-                .contains(query.toLowerCase()) ||
-            item.code.contains(query))
+    Languages()
+        .getNameInEnglish(item)
+        .getComparisonSafeString()
+        .contains(query.toLowerCase()) ||
+        Languages()
+            .getNameInLanguage(item)
+            .getComparisonSafeString()
+            .contains(query.toLowerCase()) ||
+        item.code.contains(query))
         .toList(growable: false);
   }
 }
