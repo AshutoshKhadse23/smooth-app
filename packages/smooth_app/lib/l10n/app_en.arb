@@ -4171,5 +4171,34 @@
   "nutrition_facts_extract_failed": "Failed to extract nutrients from picture",
   "@nutrition_facts_extract_failed": {
     "description": "Message to indicate that the extraction of nutrients from a picture failed"
+  },
+  "edit_packagings_explanation_units": "Enter the number of packaging units of the same shape and material contained in the product.",
+  "@edit_packagings_explanation_units": {
+    "description": "Instructions for entering the number of identical packaging units in a product"
+  },
+
+  "edit_packagings_explanation_shape": "Enter the shape name listed in the recycling instructions if they are available, or select a shape.",
+  "@edit_packagings_explanation_shape": {
+    "description": "Instructions for providing the shape of the packaging as listed or selected"
+  },
+
+  "edit_packagings_explanation_material": "Enter the specific material if it can be determined (a material code inside a triangle can often be found on packaging parts), or a generic material (for instance plastic or metal) if you are unsure.",
+  "@edit_packagings_explanation_material": {
+    "description": "Instructions for entering the material of the packaging, specific or generic"
+  },
+
+  "edit_packagings_explanation_recycling": "Enter recycling instructions only if they are listed on the product.",
+  "@edit_packagings_explanation_recycling": {
+    "description": "Instructions for entering recycling information only when provided on the product"
+  },
+
+  "edit_packagings_explanation_quantity": "Enter the net weight or net volume and indicate the unit (for example g or ml).",
+  "@edit_packagings_explanation_quantity": {
+    "description": "Instructions for entering the quantity of packaging, including units"
+  },
+
+  "edit_packagings_explanation_weight": "Remove any remaining food and wash and dry the packaging part before weighting. If possible, use a scale with 0.1g or 0.01g precision.",
+  "@edit_packagings_explanation_weight": {
+    "description": "Instructions for weighing packaging parts after cleaning, using a precise scale"
   }
 }

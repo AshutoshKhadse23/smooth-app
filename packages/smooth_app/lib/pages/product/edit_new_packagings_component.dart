@@ -1,3 +1,5 @@
+// Modify the EditNewPackagingsComponent class in edit_new_packagings_component.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +12,6 @@ import 'package:smooth_app/pages/product/explanation_widget.dart';
 import 'package:smooth_app/pages/product/simple_input_number_field.dart';
 import 'package:smooth_app/pages/product/simple_input_text_field.dart';
 
-/// Edit display of a single [ProductPackaging] component.
 class EditNewPackagingsComponent extends StatefulWidget {
   const EditNewPackagingsComponent({
     required this.title,
@@ -40,65 +41,83 @@ class _EditNewPackagingsComponentState
     final Color iconColor = dark ? Colors.white : Colors.black;
     // TODO(monsieurtanuki): the title is not refreshed at each user input
     final String? title = widget.helper.getTitle();
+
+    // Packaging parts explanations
+    final String unitsExplanation = appLocalizations.edit_packagings_explanation_units;
+
+    final String shapeExplanation = appLocalizations.edit_packagings_explanation_shape ;
+
+    final String materialExplanation = appLocalizations.edit_packagings_explanation_material;
+
+    final String recyclingExplanation = appLocalizations.edit_packagings_explanation_recycling;
+
+    final String quantityExplanation = appLocalizations.edit_packagings_explanation_quantity;
+
+    final String weightExplanation = appLocalizations.edit_packagings_explanation_weight;
+
     final List<Widget> expandedChildren = !widget.helper.expanded
         ? <Widget>[]
         : <Widget>[
-            _EditNumberLine(
-              title: appLocalizations.edit_packagings_element_field_units,
-              controller: widget.helper.controllerUnits,
-              // this icon has 2 colors: we need 2 distinct files
-              iconName: dark ? 'counter-dark' : 'counter-light',
-              iconColor: null,
-              decimal: false,
-              numberFormat: widget.helper.unitNumberFormat,
-            ),
-            _EditTextLine(
-              title: appLocalizations.edit_packagings_element_field_shape,
-              controller: widget.helper.controllerShape,
-              tagType: TagType.PACKAGING_SHAPES,
-              iconName: 'shape',
-              iconColor: iconColor,
-              minLengthForSuggestions: 0,
-              categories: widget.categories,
-              productType: widget.productType,
-            ),
-            _EditTextLine(
-              title: appLocalizations.edit_packagings_element_field_material,
-              controller: widget.helper.controllerMaterial,
-              tagType: TagType.PACKAGING_MATERIALS,
-              iconName: 'material',
-              iconColor: iconColor,
-              hint: appLocalizations.edit_packagings_element_hint_material,
-              minLengthForSuggestions: 0,
-              categories: widget.categories,
-              shapeProvider: () => widget.helper.controllerShape.text,
-              productType: widget.productType,
-            ),
-            _EditTextLine(
-              title: appLocalizations.edit_packagings_element_field_recycling,
-              controller: widget.helper.controllerRecycling,
-              tagType: TagType.PACKAGING_RECYCLING,
-              iconName: 'recycling',
-              iconColor: iconColor,
-              productType: widget.productType,
-            ),
-            _EditTextLine(
-              title: appLocalizations.edit_packagings_element_field_quantity,
-              controller: widget.helper.controllerQuantity,
-              iconName: 'quantity',
-              iconColor: iconColor,
-              productType: widget.productType,
-            ),
-            _EditNumberLine(
-              title: appLocalizations.edit_packagings_element_field_weight,
-              controller: widget.helper.controllerWeight,
-              iconName: 'weight',
-              iconColor: iconColor,
-              hint: appLocalizations.edit_packagings_element_hint_weight,
-              decimal: true,
-              numberFormat: widget.helper.decimalNumberFormat,
-            ),
-          ];
+      _EditNumberLine(
+        title: appLocalizations.edit_packagings_element_field_units,
+        controller: widget.helper.controllerUnits,
+        // this icon has 2 colors: we need 2 distinct files
+        iconName: dark ? 'counter-dark' : 'counter-light',
+        iconColor: null,
+        decimal: false,
+        numberFormat: widget.helper.unitNumberFormat,
+        hint: unitsExplanation,
+      ),
+      _EditTextLine(
+        title: appLocalizations.edit_packagings_element_field_shape,
+        controller: widget.helper.controllerShape,
+        tagType: TagType.PACKAGING_SHAPES,
+        iconName: 'shape',
+        iconColor: iconColor,
+        minLengthForSuggestions: 0,
+        categories: widget.categories,
+        productType: widget.productType,
+        hint: shapeExplanation,
+      ),
+      _EditTextLine(
+        title: appLocalizations.edit_packagings_element_field_material,
+        controller: widget.helper.controllerMaterial,
+        tagType: TagType.PACKAGING_MATERIALS,
+        iconName: 'material',
+        iconColor: iconColor,
+        hint: materialExplanation,
+        minLengthForSuggestions: 0,
+        categories: widget.categories,
+        shapeProvider: () => widget.helper.controllerShape.text,
+        productType: widget.productType,
+      ),
+      _EditTextLine(
+        title: appLocalizations.edit_packagings_element_field_recycling,
+        controller: widget.helper.controllerRecycling,
+        tagType: TagType.PACKAGING_RECYCLING,
+        iconName: 'recycling',
+        iconColor: iconColor,
+        hint: recyclingExplanation,
+        productType: widget.productType,
+      ),
+      _EditTextLine(
+        title: appLocalizations.edit_packagings_element_field_quantity,
+        controller: widget.helper.controllerQuantity,
+        iconName: 'quantity',
+        iconColor: iconColor,
+        hint: quantityExplanation,
+        productType: widget.productType,
+      ),
+      _EditNumberLine(
+        title: appLocalizations.edit_packagings_element_field_weight,
+        controller: widget.helper.controllerWeight,
+        iconName: 'weight',
+        iconColor: iconColor,
+        hint: weightExplanation,
+        decimal: true,
+        numberFormat: widget.helper.decimalNumberFormat,
+      ),
+    ];
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,12 +132,12 @@ class _EditNewPackagingsComponentState
           subtitle: title == null ? null : Text(widget.title),
           trailing: widget.helper.expanded
               ? IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: widget.deleteCallback,
-                )
+            icon: const Icon(Icons.delete),
+            onPressed: widget.deleteCallback,
+          )
               : null,
           onTap: () => setState(
-            () => widget.helper.expanded = !widget.helper.expanded,
+                () => widget.helper.expanded = !widget.helper.expanded,
           ),
         ),
         ...expandedChildren,
