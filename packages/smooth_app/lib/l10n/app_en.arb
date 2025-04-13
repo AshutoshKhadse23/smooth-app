@@ -4171,5 +4171,13 @@
   "nutrition_facts_extract_failed": "Failed to extract nutrients from picture",
   "@nutrition_facts_extract_failed": {
     "description": "Message to indicate that the extraction of nutrients from a picture failed"
+  },
+  "user_products_added_title": "Products I Added",
+  "@user_products_added_title": {
+    "description": "Title for the section where users can see the products they have added to the database"
+  },
+  "user_products_added_subtitle": "View all products you've contributed to the database",
+  "@user_products_added_subtitle": {
+    "description": "Subtitle explaining that users can view all the products they have contributed to the database"
   }
 }
