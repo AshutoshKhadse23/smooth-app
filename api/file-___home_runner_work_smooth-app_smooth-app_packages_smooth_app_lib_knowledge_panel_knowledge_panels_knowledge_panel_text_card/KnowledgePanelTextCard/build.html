@@ -71,8 +71,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  final String warningLabel =
-      AppLocalizations.of(context).knowledge_panel_warning_text;
+  final String warningLabel = AppLocalizations.of(
+    context,
+  ).knowledge_panel_warning_text;
   final RegExp regExp = RegExp(&#39;$warningLabel\\s?:\\s?&#39;);
 
   final Widget text;
@@ -92,10 +93,7 @@ Widget build(BuildContext context) {
       child: MergeSemantics(
         child: SmoothHtmlWidget(
           textElement.html,
-          textStyle:
-              WellSpacedTextHelper.TEXT_STYLE_WITH_WELL_SPACED.copyWith(
-            fontSize: 15.5,
-          ),
+          textStyle: const TextStyle(height: 1.9, fontSize: 15.5),
         ),
       ),
     );
@@ -115,13 +113,21 @@ Widget build(BuildContext context) {
       &#47;&#47; TODO(g123k): Would it be difficult to remove the Icon directly?
       &#47;&#47; Remove Icon
       IconTheme.merge(
-        data: const IconThemeData(
-          size: 0.0,
-        ),
+        data: const IconThemeData(size: 0.0),
         child: addPanelButton(
-          appLocalizations
-              .knowledge_panel_text_source(textElement.sourceText!),
-          trailingIcon: Icon(ConstantIcons.forwardIcon),
+          appLocalizations.knowledge_panel_text_source(
+            textElement.sourceText!,
+          ),
+          trailingIcon: DecoratedBox(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black12,
+            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.all(BALANCED_SPACE),
+              child: icons.Chevron.horizontalDirectional(context, size: 15.0),
+            ),
+          ),
           onPressed: () async =&gt; LaunchUrlHelper.launchURLInWebViewOrBrowser(
             context,
             textElement.sourceUrl!,

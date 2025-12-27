@@ -73,8 +73,6 @@
   required ScannerLabel scannerLabel,
   final bool screenshots = false,
 }) async {
-  unawaited(RiveFile.initialize());
-
   _screenshots = screenshots;
 
   GlobalVars.barcodeScanner = barcodeScanner;
@@ -89,13 +87,15 @@
   }
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
+  await RiveNative.init();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   _enableEdgeToEdgeMode();
 
   if (kReleaseMode) {
     await AnalyticsHelper.initSentry(
-        appRunner: () =&gt; runApp(const SmoothApp()));
+      appRunner: () =&gt; runApp(const SmoothApp()),
+    );
   } else {
     runApp(const SmoothApp());
   }

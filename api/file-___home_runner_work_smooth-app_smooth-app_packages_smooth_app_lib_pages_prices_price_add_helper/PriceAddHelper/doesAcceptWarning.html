@@ -67,8 +67,8 @@
   <pre class="language-dart"><code class="language-dart">Future&lt;bool?&gt; doesAcceptWarning({required final bool justInfo}) async {
   final AppLocalizations appLocalizations = AppLocalizations.of(context);
   const Color color = Color(0xFFB81D1D);
-  final SmoothColorsThemeExtension extension =
-      context.extension&lt;SmoothColorsThemeExtension&gt;();
+  final SmoothColorsThemeExtension extension = context
+      .extension&lt;SmoothColorsThemeExtension&gt;();
   return showSmoothListOfChoicesModalSheet&lt;bool&gt;(
     safeArea: true,
     context: context,
@@ -83,40 +83,50 @@
         children: &lt;Widget&gt;[
           TextWithBoldParts(
             text: appLocalizations.prices_privacy_warning_main_message,
-            textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+            textStyle: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
-          _buildBulletPoint(
-            appLocalizations.prices_privacy_warning_message_bullet_1,
-            context,
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: extension.warning.withValues(alpha: 0.1),
+              borderRadius: ANGULAR_BORDER_RADIUS,
+            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.symmetric(
+                vertical: SMALL_SPACE,
+              ),
+              child: Column(
+                spacing: LARGE_SPACE,
+                children: &lt;Widget&gt;[
+                  _buildBulletPoint(
+                    appLocalizations.prices_privacy_warning_message_bullet_1,
+                    context,
+                  ),
+                  _buildBulletPoint(
+                    appLocalizations.prices_privacy_warning_message_bullet_2,
+                    context,
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: MEDIUM_SPACE),
-          _buildBulletPoint(
-            appLocalizations.prices_privacy_warning_message_bullet_2,
-            context,
-          ),
+
           const SizedBox(height: MEDIUM_SPACE),
           Text(
             appLocalizations.prices_privacy_warning_sub_message,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
           ),
         ],
       ),
     ),
-    labels: &lt;String&gt;[
-      appLocalizations.i_accept,
-      appLocalizations.i_refuse,
-    ],
-    values: &lt;bool&gt;[
-      true,
-      false,
-    ],
+    labels: &lt;String&gt;[appLocalizations.i_accept, appLocalizations.i_refuse],
+    values: &lt;bool&gt;[true, false],
     prefixIcons: &lt;Widget&gt;[
-      Icon(Icons.check_circle_rounded, color: extension.success),
-      Icon(Icons.cancel_rounded, color: extension.error),
+      icons.Check.circled(color: extension.success),
+      icons.Close.circled(color: extension.error),
     ],
     title: appLocalizations.prices_privacy_warning_title,
   );
@@ -160,7 +170,6 @@
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_add_helper/PriceAddHelper/check.html">check</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_add_helper/PriceAddHelper/doesAcceptWarning.html">doesAcceptWarning</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_add_helper/PriceAddHelper/getCurrency.html">getCurrency</a></li>
-    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_add_helper/PriceAddHelper/getLocations.html">getLocations</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_add_helper/PriceAddHelper/updateCurrency.html">updateCurrency</a></li>

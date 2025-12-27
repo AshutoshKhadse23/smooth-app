@@ -76,13 +76,15 @@ Widget build(BuildContext context) {
   final double opacity = themeData.brightness == Brightness.light
       ? 1
       : SmoothTheme.ADDITIONAL_OPACITY_FOR_DARK;
-  final Color backgroundColor =
-      cardEvaluation.backgroundColor.withValues(alpha: opacity);
+  final Color backgroundColor = cardEvaluation.backgroundColor.withValues(
+    alpha: opacity,
+  );
   final Color textColor = themeData.brightness == Brightness.dark
       ? Colors.white
       : cardEvaluation.textColor.withValues(alpha: opacity);
-  final SvgIconChip? iconChip =
-      iconUrl == null ? null : SvgIconChip(iconUrl!, height: iconHeight);
+  final SvgIconChip? iconChip = iconUrl == null
+      ? null
+      : SvgIconChip(iconUrl!, height: iconHeight);
 
   return Semantics(
     value: _generateSemanticsValue(context),
@@ -90,12 +92,19 @@ Widget build(BuildContext context) {
     header: type == ScoreCardType.title,
     button: isClickable,
     child: Padding(
-      padding: margin ?? const EdgeInsets.symmetric(vertical: SMALL_SPACE),
+      padding:
+          margin ??
+          const EdgeInsetsDirectional.symmetric(vertical: SMALL_SPACE),
       child: Ink(
-        padding: const EdgeInsets.all(SMALL_SPACE),
+        padding: const EdgeInsetsDirectional.only(
+          start: SMALL_SPACE,
+          end: BALANCED_SPACE,
+          top: SMALL_SPACE,
+          bottom: SMALL_SPACE,
+        ),
         decoration: BoxDecoration(
+          borderRadius: !isClickable ? ANGULAR_BORDER_RADIUS : null,
           color: backgroundColor,
-          borderRadius: ANGULAR_BORDER_RADIUS,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,13 +122,19 @@ Widget build(BuildContext context) {
               child: Center(
                 child: Text(
                   description,
-                  style: themeData.textTheme.headlineMedium!
-                      .apply(color: textColor),
+                  style: themeData.textTheme.headlineMedium!.apply(
+                    color: textColor,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            if (isClickable) Icon(ConstantIcons.forwardIcon),
+            if (isClickable)
+              icons.AppIconTheme(
+                size: 15.0,
+                color: textColor,
+                child: icons.Chevron.horizontalDirectional(context),
+              ),
           ],
         ),
       ),

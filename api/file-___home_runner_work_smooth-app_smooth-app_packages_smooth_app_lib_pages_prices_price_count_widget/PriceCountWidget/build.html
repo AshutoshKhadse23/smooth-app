@@ -71,23 +71,21 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) =&gt; PriceButton(
-      onPressed: onPressed,
-      iconData: PriceButton.priceIconData,
-      title: &#39;$count&#39;,
-      buttonStyle: ElevatedButton.styleFrom(
-        disabledForegroundColor:
-            onPressed != null ? null : _getForegroundColor(count),
-        disabledBackgroundColor:
-            onPressed != null ? null : _getBackgroundColor(count),
-        foregroundColor:
-            onPressed == null ? null : _getForegroundColor(count),
-        backgroundColor:
-            onPressed == null ? null : _getBackgroundColor(count),
-      ),
-      tooltip: AppLocalizations.of(context).prices_button_count_price(
-        count,
-      ),
-    );</code></pre>
+  onPressed: onPressed,
+  iconData: PriceButton.priceIconData,
+  title: &#39;$count&#39;,
+  buttonStyle: ElevatedButton.styleFrom(
+    disabledForegroundColor: onPressed != null
+        ? null
+        : getForegroundColor(count),
+    disabledBackgroundColor: onPressed != null
+        ? null
+        : _getBackgroundColor(count),
+    foregroundColor: onPressed == null ? null : getForegroundColor(count),
+    backgroundColor: onPressed == null ? null : _getBackgroundColor(count),
+  ),
+  tooltip: AppLocalizations.of(context).prices_button_count_price(count),
+);</code></pre>
 </section>
 
 
@@ -133,6 +131,8 @@ Widget build(BuildContext context) =&gt; PriceButton(
 
 
 
+        <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_count_widget/PriceCountWidget-class.html#static-methods">Static methods</a></li>
+          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_count_widget/PriceCountWidget/getForegroundColor.html">getForegroundColor</a></li>
 
 </ol>
 

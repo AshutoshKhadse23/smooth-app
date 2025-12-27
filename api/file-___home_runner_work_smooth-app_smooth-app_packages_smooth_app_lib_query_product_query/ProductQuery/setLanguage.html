@@ -70,15 +70,18 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static void setLanguage(
-  final BuildContext context,
+  final BuildContext? context,
   final UserPreferences userPreferences, {
   String? languageCode,
 }) {
-  languageCode ??= userPreferences.appLanguageCode ??
-      Localizations.localeOf(context).languageCode;
+  languageCode ??=
+      userPreferences.appLanguageCode ??
+      (context == null ? &#39;en&#39; : Localizations.localeOf(context).languageCode);
+  OpenFoodFactsCountryLocalization.setLocale(languageCode);
 
-  final OpenFoodFactsLanguage language =
-      LanguageHelper.fromJson(languageCode);
+  final OpenFoodFactsLanguage language = LanguageHelper.fromJson(
+    languageCode,
+  );
   OpenFoodAPIConfiguration.globalLanguages = &lt;OpenFoodFactsLanguage&gt;[
     language,
   ];
@@ -135,6 +138,7 @@
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getCountry.html">getCountry</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getLanguage.html">getLanguage</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getLocaleString.html">getLocaleString</a></li>
+          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getPriceToken.html">getPriceToken</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getProductTypeFromDomain.html">getProductTypeFromDomain</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getReadUser.html">getReadUser</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_query_product_query/ProductQuery/getTestUriProductHelper.html">getTestUriProductHelper</a></li>

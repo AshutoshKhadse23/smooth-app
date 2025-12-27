@@ -73,32 +73,12 @@
 Widget build(BuildContext context) {
   Widget widget = SizedBox.square(
     dimension: size,
-    child: RiveAnimation.direct(
-      AnimationsLoader.of(context)!,
-      artboard: &#39;Cloud upload&#39;,
-      animations: const &lt;String&gt;[&#39;Animation&#39;],
-      onInit: (Artboard artboard) {
-        if (color != null) {
-          artboard.forEachComponent(
-            (Component child) {
-              if (child is Stroke) {
-                child.paint.color = color!;
-              } else if (child is SolidColor) {
-                child.color = color!;
-              }
-            },
-          );
-        }
-      },
-    ),
+    child: const RiveAnimation(artboard: &#39;Cloud upload&#39;),
   );
 
   if (_circleColor != null) {
     widget = DecoratedBox(
-      decoration: BoxDecoration(
-        color: _circleColor,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: _circleColor, shape: BoxShape.circle),
       child: Padding(
         padding: EdgeInsetsDirectional.only(
           top: size * 0.2,
@@ -111,10 +91,7 @@ Widget build(BuildContext context) {
     );
   }
 
-  return SizedBox.square(
-    dimension: size,
-    child: widget,
-  );
+  return SizedBox.square(dimension: size, child: widget);
 }</code></pre>
 </section>
 

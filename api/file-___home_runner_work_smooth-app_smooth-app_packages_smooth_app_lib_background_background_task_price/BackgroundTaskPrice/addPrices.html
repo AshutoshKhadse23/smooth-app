@@ -72,30 +72,86 @@ Future&lt;void&gt; addPrices({
   required final int proofId,
   required final LocalDatabase localDatabase,
 }) async {
+  &#47;&#47; Now we split: one item, one task
+  final bool split = barcodes.length &gt; 1;
+  if (split) {
+    for (int i = 0; i &lt; barcodes.length; i++) {
+      final String barcode = barcodes[i];
+      await PriceToOxF.updateOxF(
+        localDatabase: localDatabase,
+        initialBarcodes: &lt;String&gt;[barcode],
+        locationOSMId: locationOSMId,
+        locationOSMType: locationOSMType,
+      );
+      await BackgroundTaskAddOtherPrice.addTask(
+        context: null,
+        localDatabase: localDatabase,
+        proofId: proofId,
+        date: date,
+        currency: currency,
+        locationOSMId: locationOSMId,
+        locationOSMType: locationOSMType,
+        barcodes: &lt;String&gt;[barcode],
+        categories: &lt;String&gt;[categories[i]],
+        origins: &lt;List&lt;String&gt;&gt;[origins[i]],
+        labels: &lt;List&lt;String&gt;&gt;[labels[i]],
+        pricePers: &lt;String&gt;[pricePers[i]],
+        pricesAreDiscounted: &lt;bool&gt;[pricesAreDiscounted[i]],
+        prices: &lt;double&gt;[prices[i]],
+        pricesWithoutDiscount: &lt;double?&gt;[pricesWithoutDiscount[i]],
+      );
+    }
+    return;
+  }
+  &#47;&#47; For the record, we have only one item here anyway.
   for (int i = 0; i &lt; barcodes.length; i++) {
     final String barcode = barcodes[i];
+    final bool isProduct = barcode.isNotEmpty;
+    final bool priceIsDiscounted = pricesAreDiscounted[i];
+    double price = prices[i];
+    double? priceWithoutDiscount = pricesWithoutDiscount[i];
+    if (priceIsDiscounted) {
+      if (priceWithoutDiscount != null) {
+        if (price &gt; priceWithoutDiscount) {
+          final double tmp = price;
+          price = priceWithoutDiscount;
+          priceWithoutDiscount = tmp;
+        } else if (price == priceWithoutDiscount) {
+          priceWithoutDiscount = null;
+        }
+      }
+    }
     final Price newPrice = Price()
       ..date = date
       ..currency = currency
       ..locationOSMId = locationOSMId
       ..locationOSMType = locationOSMType
       ..proofId = proofId
-      ..priceIsDiscounted = pricesAreDiscounted[i]
-      ..price = prices[i]
-      ..priceWithoutDiscount = pricesWithoutDiscount[i]
-      ..productCode = barcode;
+      ..productCode = isProduct ? barcode : null
+      ..categoryTag = isProduct ? null : categories[i]
+      ..originsTags = isProduct ? null : origins[i]
+      ..labelsTags = isProduct ? null : labels[i]
+      ..pricePer = isProduct ? null : PricePer.fromOffTag(pricePers[i])
+      ..type = isProduct ? PriceType.product : PriceType.category
+      ..priceIsDiscounted = priceIsDiscounted
+      ..price = _fixPriceDecimals(price)
+      ..priceWithoutDiscount = priceWithoutDiscount == null
+          ? null
+          : _fixPriceDecimals(priceWithoutDiscount);
 
     &#47;&#47; create price
     final MaybeError&lt;Price?&gt; addedPrice =
         await OpenPricesAPIClient.createPrice(
-      price: newPrice,
-      bearerToken: bearerToken,
-      uriHelper: ProductQuery.uriPricesHelper,
-    );
+          price: newPrice,
+          bearerToken: bearerToken,
+          uriHelper: ProductQuery.uriPricesHelper,
+        );
     if (addedPrice.isError) {
       throw Exception(&#39;Could not add price: ${addedPrice.error}&#39;);
     }
-    ProductPriceRefresher.setLatestUpdate(barcode);
+    if (isProduct) {
+      ProductPriceRefresher.setLatestUpdate(barcode);
+    }
   }
   localDatabase.notifyListeners();
 }</code></pre>
@@ -131,11 +187,15 @@ Future&lt;void&gt; addPrices({
       <a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice-class.html#instance-properties">Properties</a>
     </li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/barcodes.html">barcodes</a></li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/categories.html">categories</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/currency.html">currency</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/date.html">date</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/labels.html">labels</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/locationOSMId.html">locationOSMId</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/locationOSMType.html">locationOSMType</a></li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/origins.html">origins</a></li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/pricePers.html">pricePers</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/prices.html">prices</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/pricesAreDiscounted.html">pricesAreDiscounted</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/pricesWithoutDiscount.html">pricesWithoutDiscount</a></li>
@@ -143,7 +203,6 @@ Future&lt;void&gt; addPrices({
 
     <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice-class.html#instance-methods">Methods</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/addPrices.html">addPrices</a></li>
-    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/closeSession.html">closeSession</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/getBearerToken.html">getBearerToken</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/getFloatingMessage.html">getFloatingMessage</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_price/BackgroundTaskPrice/isDeduplicable.html">isDeduplicable</a></li>

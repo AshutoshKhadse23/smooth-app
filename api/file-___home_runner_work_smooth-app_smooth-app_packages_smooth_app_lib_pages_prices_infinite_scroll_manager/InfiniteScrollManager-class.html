@@ -62,10 +62,10 @@
 
     <dl class="constructor-summary-list">
         <dt id="InfiniteScrollManager" class="callable">
-          <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/InfiniteScrollManager.html">InfiniteScrollManager</a></span><span class="signature">(<span class="parameter" id="-param-initialItems">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">initialItems</span>}</span>)</span>
+          <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/InfiniteScrollManager.html">InfiniteScrollManager</a></span><span class="signature">(<span class="parameter" id="-param-initialItems">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">initialItems</span>, </span><span class="parameter" id="-param-totalItems"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">totalItems</span>, </span><span class="parameter" id="-param-totalPages"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">totalPages</span>}</span>)</span>
         </dt>
         <dd>
-          Creates an instance of <a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager-class.html">InfiniteScrollManager</a> with optional initial items.
+          Creates an <a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager-class.html">InfiniteScrollManager</a> with optional initial state.
         </dd>
     </dl>
   </section>
@@ -81,6 +81,17 @@
 </dt>
 <dd>
   Getter for current page
+  <div class="features">read-only</div>
+
+</dd>
+
+        <dt id="emptyListIcon" class="property">
+  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListIcon.html">emptyListIcon</a></span>
+  <span class="signature">&#8594; dynamic</span> 
+
+</dt>
+<dd>
+  svg.vec format expected (cf <a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_empty_screen_layout/EmptyScreenLayout-class.html">EmptyScreenLayout</a>)
   <div class="features">read-only</div>
 
 </dd>
@@ -186,6 +197,32 @@
 
 </dd>
 
+        <dt id="emptyListExplanation" class="callable">
+  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListExplanation.html">emptyListExplanation</a></span><span class="signature">(<wbr><span class="parameter" id="emptyListExplanation-param-appLocalizations"><span class="type-annotation">dynamic</span> <span class="parameter-name">appLocalizations</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="emptyListTitle" class="callable">
+  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListTitle.html">emptyListTitle</a></span><span class="signature">(<wbr><span class="parameter" id="emptyListTitle-param-appLocalizations"><span class="type-annotation">dynamic</span> <span class="parameter-name">appLocalizations</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
         <dt id="fetchData" class="callable">
   <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/fetchData.html">fetchData</a></span><span class="signature">(<wbr><span class="parameter" id="fetchData-param-pageNumber"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">pageNumber</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
@@ -200,7 +237,7 @@
 </dd>
 
         <dt id="fetchInit" class="callable">
-  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/fetchInit.html">fetchInit</a></span><span class="signature">(<wbr>)
+  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/fetchInit.html">fetchInit</a></span><span class="signature">(<wbr><span class="parameter" id="fetchInit-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -213,7 +250,7 @@
 </dd>
 
         <dt id="formattedItemCount" class="callable">
-  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/formattedItemCount.html">formattedItemCount</a></span><span class="signature">(<wbr><span class="parameter" id="formattedItemCount-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span></span>)
+  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/formattedItemCount.html">formattedItemCount</a></span><span class="signature">(<wbr><span class="parameter" id="formattedItemCount-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span>, </span><span class="parameter" id="formattedItemCount-param-loadedItems"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">loadedItems</span>, </span><span class="parameter" id="formattedItemCount-param-totalItems"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">totalItems</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
   </span>
   
@@ -221,32 +258,6 @@
 </dt>
 <dd>
   Returns a formatted item count (e.g., "25 of 100 items")
-  
-
-</dd>
-
-        <dt id="formattedPageIndicator" class="callable">
-  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/formattedPageIndicator.html">formattedPageIndicator</a></span><span class="signature">(<wbr><span class="parameter" id="formattedPageIndicator-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
-  </span>
-  
-
-</dt>
-<dd>
-  Returns a formatted page indicator (e.g., "Page 1 / 5")
-  
-
-</dd>
-
-        <dt id="getItemWidget" class="callable">
-  <span class="name"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/getItemWidget.html">getItemWidget</a></span><span class="signature">(<wbr><span class="parameter" id="getItemWidget-param-context">{<span>required</span> <span class="type-annotation">dynamic</span> <span class="parameter-name">context</span>, </span><span class="parameter" id="getItemWidget-param-item"><span>required</span> <span class="type-annotation">T</span> <span class="parameter-name">item</span>}</span>)
-    <span class="returntype parameter">&#8594; dynamic</span>
-  </span>
-  
-
-</dt>
-<dd>
-  
   
 
 </dd>
@@ -387,6 +398,7 @@
       <a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager-class.html#instance-properties">Properties</a>
     </li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/currentPage.html">currentPage</a></li>
+    <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListIcon.html">emptyListIcon</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/isLoading.html">isLoading</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/items.html">items</a></li>
@@ -397,11 +409,11 @@
     <li class="section-title"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager-class.html#instance-methods">Methods</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/buildItem.html">buildItem</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/canLoadMore.html">canLoadMore</a></li>
+    <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListExplanation.html">emptyListExplanation</a></li>
+    <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/emptyListTitle.html">emptyListTitle</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/fetchData.html">fetchData</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/fetchInit.html">fetchInit</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/formattedItemCount.html">formattedItemCount</a></li>
-    <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/formattedPageIndicator.html">formattedPageIndicator</a></li>
-    <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/getItemWidget.html">getItemWidget</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/loadInitiallyIfNeeded.html">loadInitiallyIfNeeded</a></li>
     <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_infinite_scroll_manager/InfiniteScrollManager/loadMore.html">loadMore</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>

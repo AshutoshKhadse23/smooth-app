@@ -79,23 +79,16 @@
 
   &#47;&#47; We can&#39;t provide a null value to a [BoxConstraints] constructor
   if (minHeight != null &amp;&amp; maxHeight != null) {
-    constraints = BoxConstraints(
-      minHeight: minHeight,
-      maxHeight: maxHeight,
-    );
+    constraints = BoxConstraints(minHeight: minHeight, maxHeight: maxHeight);
   } else if (minHeight != null) {
-    constraints = BoxConstraints(
-      minHeight: minHeight,
-    );
+    constraints = BoxConstraints(minHeight: minHeight);
   } else if (maxHeight != null) {
-    constraints = BoxConstraints(
-      maxHeight: maxHeight,
-    );
+    constraints = BoxConstraints(maxHeight: maxHeight);
   }
 
   return showModalBottomSheet&lt;T&gt;(
     constraints: constraints,
-    isScrollControlled: true,
+    isScrollControlled: isScrollControlled ?? true,
     context: context,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: ROUNDED_RADIUS),
@@ -127,6 +120,7 @@
     <h5>smooth_bottom_sheet library</h5>
     <ol>
   <li class="section-title"><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet-library.html#classes">Classes</a></li>
+  <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/ModalSheetItem-class.html">ModalSheetItem</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/SizeWidget-class.html">SizeWidget</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/SmoothModalSheet-class.html">SmoothModalSheet</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/SmoothModalSheetBodyContainer-class.html">SmoothModalSheetBodyContainer</a></li>
@@ -143,6 +137,7 @@
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothAlertModalSheet.html">showSmoothAlertModalSheet</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothDraggableModalSheet.html">showSmoothDraggableModalSheet</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothListOfChoicesModalSheet.html">showSmoothListOfChoicesModalSheet</a></li>
+  <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothListOfItemsModalSheet.html">showSmoothListOfItemsModalSheet</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothModalSheet.html">showSmoothModalSheet</a></li>
   <li><a href="../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_bottom_sheets_smooth_bottom_sheet/showSmoothModalSheetForTextField.html">showSmoothModalSheetForTextField</a></li>
 

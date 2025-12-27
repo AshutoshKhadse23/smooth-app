@@ -77,7 +77,7 @@ Widget build(BuildContext context) {
 
   return SmoothCardWithRoundedHeader(
     title: appLocalizations.prices_location_subtitle,
-    leading: const Icon(Icons.shopping_cart),
+    leading: const icons.Shopping.cart(),
     contentPadding: const EdgeInsetsDirectional.symmetric(
       horizontal: SMALL_SPACE,
       vertical: MEDIUM_SPACE,
@@ -86,48 +86,49 @@ Widget build(BuildContext context) {
       text: location == null
           ? appLocalizations.prices_location_find
           : location.getTitle() ??
-              location.getSubtitle() ??
-              location.getLatLng().toString(),
-      leadingIcon: location == null
-          ? const Icon(Icons.shopping_cart)
-          : const Icon(PriceButton.locationIconData),
+                location.getSubtitle() ??
+                location.getLatLng().toString(),
+      leadingIcon: const icons.Location(),
+      trailingIcon: const icons.Chevron.right(size: 10.0),
       onPressed: model.proof != null
           ? null
           : () async {
-              final LocalDatabase localDatabase =
-                  context.read&lt;LocalDatabase&gt;();
+              final LocalDatabase localDatabase = context
+                  .read&lt;LocalDatabase&gt;();
               final List&lt;SearchLocationPreloadedItem&gt; preloadedList =
                   &lt;SearchLocationPreloadedItem&gt;[];
-              for (final OsmLocation osmLocation in model.locations!) {
+              final List&lt;OsmLocation&gt; locations = await DaoOsmLocation(
+                localDatabase,
+              ).getAll();
+              if (!context.mounted) {
+                return;
+              }
+              for (final OsmLocation osmLocation in locations) {
                 preloadedList.add(
-                  SearchLocationPreloadedItem(
-                    osmLocation,
-                    popFirst: false,
-                  ),
+                  SearchLocationPreloadedItem(osmLocation, popFirst: false),
                 );
               }
               final OsmLocation? osmLocation =
                   await Navigator.push&lt;OsmLocation&gt;(
-                context,
-                MaterialPageRoute&lt;OsmLocation&gt;(
-                  builder: (BuildContext context) =&gt; SearchPage(
-                    SearchLocationHelper(),
-                    preloadedList: preloadedList,
-                    autofocus: false,
-                  ),
-                ),
-              );
+                    context,
+                    MaterialPageRoute&lt;OsmLocation&gt;(
+                      builder: (BuildContext context) =&gt; SearchPage(
+                        SearchLocationHelper(),
+                        preloadedList: preloadedList,
+                        autofocus: false,
+                        backButtonType: BackButtonType.close,
+                      ),
+                    ),
+                  );
               if (osmLocation == null) {
                 return;
               }
-              final DaoOsmLocation daoOsmLocation =
-                  DaoOsmLocation(localDatabase);
+              final DaoOsmLocation daoOsmLocation = DaoOsmLocation(
+                localDatabase,
+              );
               await daoOsmLocation.put(osmLocation);
-              final List&lt;OsmLocation&gt; newOsmLocations =
-                  await daoOsmLocation.getAll();
-              model.locations = newOsmLocations;
 
-              onLocationChanged.call(location, model.location!);
+              onLocationChanged.call(osmLocation);
             },
     ),
   );

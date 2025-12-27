@@ -71,27 +71,31 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  final Widget child;
+  final Widget child = switch (tabItem) {
+    BottomNavigationTab.Profile =&gt; PreferencesPage(),
+    BottomNavigationTab.List =&gt; const HistoryPage(),
+    BottomNavigationTab.Scan =&gt; const ScanPage(),
+  };
 
-  switch (tabItem) {
-    case BottomNavigationTab.Profile:
-      child = const UserPreferencesPage();
-      break;
-    case BottomNavigationTab.List:
-      child = const HistoryPage();
-      break;
-    case BottomNavigationTab.Scan:
-      child = const ScanPage();
-      break;
-  }
+  return PopScope(
+    canPop: false,
+    onPopInvokedWithResult: (bool didPop, dynamic res) async {
+      if (didPop) {
+        return;
+      }
 
-  return Navigator(
-    key: navigatorKey,
-    onGenerateRoute: (RouteSettings routeSettings) {
-      return MaterialPageRoute&lt;dynamic&gt;(
-        builder: (BuildContext context) =&gt; child,
-      );
+      if (navigatorKey.currentState!.canPop()) {
+        navigatorKey.currentState!.pop(res);
+      }
     },
+    child: Navigator(
+      key: navigatorKey,
+      onGenerateRoute: (RouteSettings routeSettings) {
+        return MaterialPageRoute&lt;dynamic&gt;(
+          builder: (BuildContext context) =&gt; child,
+        );
+      },
+    ),
   );
 }</code></pre>
 </section>

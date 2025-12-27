@@ -52,7 +52,8 @@
       
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">addTask</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="addTask-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span></span></li>
+<span class="name ">addTask</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="addTask-param-context"><span class="type-annotation">dynamic</span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="addTask-param-displaySnackbar">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">displaySnackbar</span>}</span></li>
 </ol>)
 
       
@@ -67,13 +68,25 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; addTask(final BuildContext context) async {
+  <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; addTask(
+  final BuildContext context, {
+  required final bool displaySnackbar,
+}) async {
   final List&lt;String&gt; barcodes = &lt;String&gt;[];
+  final List&lt;String&gt; categories = &lt;String&gt;[];
+  final List&lt;List&lt;String&gt;&gt; origins = &lt;List&lt;String&gt;&gt;[];
+  final List&lt;List&lt;String&gt;&gt; labels = &lt;List&lt;String&gt;&gt;[];
+  final List&lt;String&gt; pricePers = &lt;String&gt;[];
   final List&lt;bool&gt; pricesAreDiscounted = &lt;bool&gt;[];
   final List&lt;double&gt; prices = &lt;double&gt;[];
   final List&lt;double?&gt; pricesWithoutDiscount = &lt;double?&gt;[];
   for (final PriceAmountModel priceAmountModel in _priceAmountModels) {
     barcodes.add(priceAmountModel.product.barcode);
+    categories.add(priceAmountModel.product.categoryTag);
+    origins.add(priceAmountModel.product.originTags);
+    &#47;&#47; TODO(monsieurtanuki): to be implemented when supported by &quot;prices&quot;
+    labels.add(&lt;String&gt;[]);
+    pricePers.add(priceAmountModel.product.pricePer.offTag);
     pricesAreDiscounted.add(priceAmountModel.promo);
     prices.add(priceAmountModel.checkedPaidPrice);
     pricesWithoutDiscount.add(priceAmountModel.checkedPriceWithoutDiscount);
@@ -89,6 +102,10 @@
       proofId: proof!.id,
       &#47;&#47; per item
       barcodes: barcodes,
+      categories: categories,
+      origins: origins,
+      labels: labels,
+      pricePers: pricePers,
       pricesAreDiscounted: pricesAreDiscounted,
       prices: prices,
       pricesWithoutDiscount: pricesWithoutDiscount,
@@ -106,9 +123,15 @@
     currency: currency,
     &#47;&#47; per item
     barcodes: barcodes,
+    categories: categories,
+    origins: origins,
+    labels: labels,
+    pricePers: pricePers,
     pricesAreDiscounted: pricesAreDiscounted,
     prices: prices,
     pricesWithoutDiscount: pricesWithoutDiscount,
+    displaySnackbar: displaySnackbar,
+    readyForPriceTagValidation: readyForPriceTagValidation,
   );
 }</code></pre>
 </section>
@@ -152,10 +175,10 @@
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/hasImage.html">hasImage</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/length.html">length</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/location.html">location</a></li>
-    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/locations.html">locations</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/multipleProducts.html">multipleProducts</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/proof.html">proof</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/proofType.html">proofType</a></li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/readyForPriceTagValidation.html">readyForPriceTagValidation</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_prices_price_model/PriceModel/today.html">today</a></li>
 

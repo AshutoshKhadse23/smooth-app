@@ -78,6 +78,8 @@ Widget build(BuildContext context) {
 
   if (expandBody) {
     bodyChild = Expanded(child: bodyChild);
+  } else {
+    bodyChild = Flexible(child: SingleChildScrollView(child: bodyChild));
   }
 
   return ClipRRect(
@@ -88,10 +90,7 @@ Widget build(BuildContext context) {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: &lt;Widget&gt;[
-          header,
-          bodyChild,
-        ],
+        children: &lt;Widget&gt;[header, bodyChild],
       ),
     ),
   );

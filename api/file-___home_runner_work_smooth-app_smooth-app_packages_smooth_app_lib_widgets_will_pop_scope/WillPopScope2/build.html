@@ -74,7 +74,7 @@ Widget build(BuildContext context) {
   return ChangeNotifierProvider&lt;WillPopScope2Controller?&gt;.value(
     value: controller,
     child: Consumer&lt;WillPopScope2Controller?&gt;(
-      builder: (_, WillPopScope2Controller? controller, __) {
+      builder: (_, WillPopScope2Controller? controller, _) {
         return PopScope(
           canPop: controller?.value ?? false,
           onPopInvokedWithResult: (bool didPop, dynamic result) async {
@@ -89,8 +89,13 @@ Widget build(BuildContext context) {
                   GoRouter.of(context).pop(res);
                 } on GoError catch (error) {
                   if (error.message == &#39;There is nothing to pop&#39;) {
-                    &#47;&#47; Force to kill the app
-                    SystemNavigator.pop();
+                    try {
+                      &#47;&#47; Using regular Navigator as fallback
+                      Navigator.of(context).pop(res);
+                    } catch (navigatorError) {
+                      &#47;&#47; Force to kill the app
+                      SystemNavigator.pop();
+                    }
                   }
                 }
               });

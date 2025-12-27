@@ -65,15 +65,17 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">static BoxDecoration decoration(BuildContext context) {
-  final SmoothColorsThemeExtension theme =
-      Theme.of(context).extension&lt;SmoothColorsThemeExtension&gt;()!;
-  final bool lightTheme = !context.watch&lt;ThemeProvider&gt;().isDarkMode(context);
+  final SmoothColorsThemeExtension theme = Theme.of(
+    context,
+  ).extension&lt;SmoothColorsThemeExtension&gt;()!;
+  final bool lightTheme = context.lightTheme();
 
   return BoxDecoration(
     borderRadius: SearchFieldUIHelper.SEARCH_BAR_BORDER_RADIUS,
-    color: lightTheme ? Colors.white : theme.greyDark,
+    color: Colors.white,
     border: Border.all(
-        color: lightTheme ? theme.primaryBlack : theme.primarySemiDark),
+      color: lightTheme ? theme.primaryBlack : theme.primarySemiDark,
+    ),
   );
 }</code></pre>
 </section>
@@ -115,10 +117,12 @@
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
+        <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper-class.html#static-properties">Static properties</a></li>
+          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper/hintTextStyle.html">hintTextStyle</a></li>
+          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper/textStyle.html">textStyle</a></li>
 
         <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper-class.html#static-methods">Static methods</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper/decoration.html">decoration</a></li>
-          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper/textStyle.html">textStyle</a></li>
 
         <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper-class.html#constants">Constants</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_pages_search_search_field/SearchFieldUIHelper/SEARCH_BAR_BORDER_RADIUS-constant.html">SEARCH_BAR_BORDER_RADIUS</a></li>

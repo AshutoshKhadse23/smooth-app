@@ -69,10 +69,9 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; add(final BackgroundTask task) async {
   final String taskId = task.uniqueId;
-  await DaoInstantString(localDatabase).put(
-    _taskIdToDaoInstantStringKey(taskId),
-    jsonEncode(task.toJson()),
-  );
+  await DaoInstantString(
+    localDatabase,
+  ).put(_taskIdToDaoInstantStringKey(taskId), jsonEncode(task.toJson()));
   await DaoStringList(localDatabase).add(queue.tagTaskQueue, taskId);
   await task.preExecute(localDatabase);
   _run(forceNowIfPossible: true);
@@ -124,6 +123,7 @@
         <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager-class.html#static-methods">Static methods</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager/getInstance.html">getInstance</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager/runAgain.html">runAgain</a></li>
+          <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager/taskIdToCountDaoIntKey.html">taskIdToCountDaoIntKey</a></li>
           <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager/taskIdToErrorDaoInstantStringKey.html">taskIdToErrorDaoInstantStringKey</a></li>
 
         <li class="section-title"><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_background_background_task_manager/BackgroundTaskManager-class.html#constants">Constants</a></li>

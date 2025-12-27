@@ -71,30 +71,28 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  final MaterialLocalizations localizations =
-      MaterialLocalizations.of(context);
+  final String semanticLabel = _semanticLabel(context);
 
-  return Material(
-    type: MaterialType.transparency,
+  return Tooltip(
+    message: semanticLabel,
     child: Semantics(
-      value: localizations.backButtonTooltip,
-      button: true,
+      value: semanticLabel,
       excludeSemantics: true,
-      child: InkWell(
-        onTap: onPressed ?? () =&gt; Navigator.maybePop(context),
-        customBorder: const CircleBorder(),
-        child: Tooltip(
-          message: localizations.backButtonTooltip,
-          child: Padding(
-            padding: _iconPadding,
-            child: Icon(
-              ConstantIcons.backIcon,
-              color: iconColor ??
-                  (Theme.of(context).colorScheme.brightness ==
-                          Brightness.light
-                      ? Colors.black
-                      : Colors.white),
-            ),
+      button: true,
+      child: SizedBox(
+        width: kToolbarHeight,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: () {
+            Navigator.of(context).maybePop();
+          },
+          child: SizedBox.expand(
+            child: _circledIcon(switch (backButtonType ??
+                BackButtonType.back) {
+              BackButtonType.back =&gt; const icons.Arrow.left(),
+              BackButtonType.close =&gt; const icons.Close.bold(size: 14.0),
+              BackButtonType.minimize =&gt; const icons.Chevron.down(),
+            }),
           ),
         ),
       ),
@@ -131,6 +129,7 @@ Widget build(BuildContext context) {
     <li class="section-title">
       <a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_widgets_smooth_back_button/SmoothBackButton-class.html#instance-properties">Properties</a>
     </li>
+    <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_widgets_smooth_back_button/SmoothBackButton/backButtonType.html">backButtonType</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_widgets_smooth_back_button/SmoothBackButton/iconColor.html">iconColor</a></li>
     <li><a href="../../file-___home_runner_work_smooth-app_smooth-app_packages_smooth_app_lib_generic_lib_widgets_smooth_back_button/SmoothBackButton/onPressed.html">onPressed</a></li>
